@@ -11,8 +11,8 @@ COPY vendor/ vendor/
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o manager k8s.io/airflow-operator/cmd/manager
 
 # Copy the controller-manager into a thin image
-FROM ubuntu:latest
-WORKDIR /root/
+FROM registry.access.redhat.com/ubi8/ubi
+WORKDIR /opt/airflow/
 COPY --from=builder /go/src/k8s.io/airflow-operator/manager .
 COPY templates/ templates/
 COPY config/crds/ crds/
