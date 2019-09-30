@@ -18,6 +18,7 @@ package v1
 
 import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"fmt"
 )
 
 // IsControlledBy checks if the  object has a controllerRef set to the given owner
@@ -41,8 +42,9 @@ func GetControllerOf(controllee Object) *OwnerReference {
 
 // NewControllerRef creates an OwnerReference pointing to the given owner.
 func NewControllerRef(owner Object, gvk schema.GroupVersionKind) *OwnerReference {
-	blockOwnerDeletion := true
+	blockOwnerDeletion := false
 	isController := true
+	fmt.Println(gvk)
 	return &OwnerReference{
 		APIVersion:         gvk.GroupVersion().String(),
 		Kind:               gvk.Kind,

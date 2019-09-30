@@ -23,6 +23,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/validation/field"
 	"sigs.k8s.io/controller-reconciler/pkg/finalizer"
 	"sigs.k8s.io/controller-reconciler/pkg/status"
+	"fmt"
 )
 
 // defaults and constant strings
@@ -510,12 +511,18 @@ func (b *AirflowBase) Validate() error {
 }
 
 // OwnerRef returns owner ref object with the component's resource as owner
-func (b *AirflowBase) OwnerRef() *metav1.OwnerReference {
-	return metav1.NewControllerRef(b, schema.GroupVersionKind{
+func (b *AirflowBase) ownerRef() *metav1.OwnerReference {
+	gvk := schema.GroupVersionKind{
 		Group:   SchemeGroupVersion.Group,
 		Version: SchemeGroupVersion.Version,
 		Kind:    "AirflowBase",
-	})
+	}
+	fmt.Println(gvk.String())
+	fmt.Println(gvk.Kind)
+	x := metav1.NewControllerRef(b, gvk)
+	fmt.Println(x)
+
+	return x
 }
 
 // NewAirflowBase return a defaults filled AirflowBase object

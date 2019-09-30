@@ -41,7 +41,7 @@ rules:
   - patch
   - delete
 - apiGroups:
-  - airflow.k8s.io
+  - airflow.k8s.io/v1alpha1
   resources:
   - airflowbases
   verbs:
@@ -53,7 +53,7 @@ rules:
   - patch
   - delete
 - apiGroups:
-  - airflow.k8s.io
+  - airflow.k8s.io/v1alpha1
   resources:
   - airflowclusters
   verbs:
